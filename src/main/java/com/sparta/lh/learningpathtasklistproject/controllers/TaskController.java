@@ -46,9 +46,15 @@ public class TaskController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Task> updateTask(@PathVariable int id, @RequestBody Task task) {
+<<<<<<< HEAD
         Optional<Task> existingTaskOptional = taskRepository.findById(id);
         if (existingTaskOptional.isPresent()) {
             Task existingTask = existingTaskOptional.get();
+=======
+        Optional<Task> existingTaskOpt = taskRepository.findById(id);
+        if (existingTaskOpt.isPresent()) {
+            Task existingTask = existingTaskOpt.get();
+>>>>>>> 52aab0c32d1f3c35f049290c7efbfd994b7cb609
             existingTask.setName(task.getName());
             existingTask.setDeadline(task.getDeadline());
             existingTask.setUsers(task.getUsers());
