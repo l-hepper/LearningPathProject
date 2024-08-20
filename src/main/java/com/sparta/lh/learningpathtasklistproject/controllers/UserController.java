@@ -61,48 +61,6 @@ public class UserController {
         return ResponseEntity.created(location).body(savedUser);
     }
 
-    @PostMapping("/{userId}/tasks/{taskId}")
-    public ResponseEntity<String> assignTaskToUser(@PathVariable Integer userId, @PathVariable Integer taskId) {
-        Optional<User> userOptional = userRepository.findById(userId);
-        Optional<Task> taskOptional = taskRepository.findById(taskId);
-
-        if (userOptional.isPresent() && taskOptional.isPresent()) {
-            User user = userOptional.get();
-            Task task = taskOptional.get();
-
-            user.getTasks().add(task);
-            task.getUsers().add(user);
-
-            userRepository.save(user);
-            taskRepository.save(task);
-
-            return ResponseEntity.ok("Task assigned to user successfully.");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User or Task not found.");
-        }
-    }
-
-    @DeleteMapping("/{userId}/tasks/{taskId}")
-    public ResponseEntity<String> deleteTaskToUser(@PathVariable Integer userId, @PathVariable Integer taskId) {
-        Optional<User> userOptional = userRepository.findById(userId);
-        Optional<Task> taskOptional = taskRepository.findById(taskId);
-
-        if (userOptional.isPresent() && taskOptional.isPresent()) {
-            User user = userOptional.get();
-            Task task = taskOptional.get();
-
-            user.getTasks().remove(task);
-            task.getUsers().remove(user);
-
-            userRepository.save(user);
-            taskRepository.save(task);
-
-            return ResponseEntity.ok("Task unassigned from user successfully.");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User or Task not found.");
-        }
-    }
-
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable int id, @RequestBody User user) {
         Optional<User> existingUserOptional = userRepository.findById(id);
