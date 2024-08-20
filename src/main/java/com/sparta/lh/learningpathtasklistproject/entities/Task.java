@@ -1,6 +1,7 @@
 package com.sparta.lh.learningpathtasklistproject.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -27,11 +28,11 @@ public class Task {
     @Column(name = "deadline", nullable = false)
     private LocalDate deadline;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_tasks",
             joinColumns = @JoinColumn(name = "task_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    @JsonManagedReference
+    @JsonIgnore
     private Set<User> users = new LinkedHashSet<>();
 
     public Integer getId() {
