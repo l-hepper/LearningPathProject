@@ -1,5 +1,6 @@
 package com.sparta.lh.learningpathtasklistproject.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -31,6 +32,7 @@ public class User {
     private String password;
 
     @ManyToMany(mappedBy = "users")
+    @JsonBackReference
     private Set<Task> tasks = new LinkedHashSet<>();
 
     public Integer getId() {

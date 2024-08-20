@@ -1,7 +1,10 @@
 package com.sparta.lh.learningpathtasklistproject.controllers;
 
+import com.sparta.lh.learningpathtasklistproject.entities.Task;
 import com.sparta.lh.learningpathtasklistproject.entities.User;
+import com.sparta.lh.learningpathtasklistproject.entities.UserTask;
 import com.sparta.lh.learningpathtasklistproject.repositories.UserRepository;
+import com.sparta.lh.learningpathtasklistproject.repositories.UserTaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,16 +12,19 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
+    private final UserTaskRepository userTaskRepository;
     UserRepository userRepository;
 
     @Autowired
-    public UserController(UserRepository userRepository) {
+    public UserController(UserRepository userRepository, UserTaskRepository userTaskRepository) {
         this.userRepository = userRepository;
+        this.userTaskRepository = userTaskRepository;
     }
 
     @GetMapping
@@ -35,6 +41,13 @@ public class UserController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/{userId}/tasks")
+    public ResponseEntity<List<Task>> getUserTasks(@PathVariable Integer userId) {
+        List<UserTask> userTasks = userTaskRepository.findUserTasksByUserId(userId);
+        List<Task> tasks = userTasks.stream().map(userTask -> userTask.getTask()).collect(Collectors.toList());
+        return ResponseEntity.ok(tasks);
     }
 
     @PostMapping
