@@ -49,6 +49,7 @@ out/
 *.ipr
 *.iws
 *.properties
+certs/
 
 # VS Code
 .vscode
