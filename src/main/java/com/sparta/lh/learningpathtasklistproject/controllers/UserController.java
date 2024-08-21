@@ -7,9 +7,15 @@ import com.sparta.lh.learningpathtasklistproject.repositories.TaskRepository;
 import com.sparta.lh.learningpathtasklistproject.repositories.UserRepository;
 import com.sparta.lh.learningpathtasklistproject.repositories.UserTaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
+
+import org.springframework.hateoas.EntityModel;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.net.URI;
 import java.util.List;
@@ -38,10 +44,18 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable int id) {
+    public ResponseEntity<EntityModel<User>> getUserById(@PathVariable int id) {
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()) {
-            return ResponseEntity.ok(user.get());
+            User userEntity = user.get();
+
+            Link selfLink = linkTo(methodOn(this.getClass()).getUserById(id)).withSelfRel();
+
+            Link tasksLink = linkTo(methodOn(UserController.class).getUserTasks(id)).withRel("tasks");
+
+            EntityModel<User> resource = EntityModel.of(userEntity, selfLink, tasksLink);
+
+            return ResponseEntity.ok(resource);
         } else {
             return ResponseEntity.notFound().build();
         }
