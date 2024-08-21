@@ -107,6 +107,42 @@ public class TaskController {
         }
     }
 
+    @PatchMapping("/{id}/complete")
+    public ResponseEntity<EntityModel<Task>> markTaskAsComplete(@PathVariable Integer id) {
+        Optional<Task> existingTaskOptional = taskRepository.findById(id);
+        if (existingTaskOptional.isPresent()) {
+            Task existingTask = existingTaskOptional.get();
+            existingTask.setCompleted(true);
+            Task updatedTask = taskRepository.save(existingTask);
+
+            Link selfLink = linkTo(methodOn(TaskController.class).getTaskById(updatedTask.getId())).withSelfRel();
+            Link usersLink = linkTo(methodOn(TaskController.class).getUsersByTask(updatedTask.getId())).withRel("users");
+            EntityModel<Task> resource = EntityModel.of(updatedTask, selfLink, usersLink);
+
+            return ResponseEntity.ok(resource);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PatchMapping("/{id}/uncomplete")
+    public ResponseEntity<EntityModel<Task>> markTaskAsUncomplete(@PathVariable Integer id) {
+        Optional<Task> existingTaskOptional = taskRepository.findById(id);
+        if (existingTaskOptional.isPresent()) {
+            Task existingTask = existingTaskOptional.get();
+            existingTask.setCompleted(false);
+            Task updatedTask = taskRepository.save(existingTask);
+
+            Link selfLink = linkTo(methodOn(TaskController.class).getTaskById(updatedTask.getId())).withSelfRel();
+            Link usersLink = linkTo(methodOn(TaskController.class).getUsersByTask(updatedTask.getId())).withRel("users");
+            EntityModel<Task> resource = EntityModel.of(updatedTask, selfLink, usersLink);
+
+            return ResponseEntity.ok(resource);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTask(@PathVariable int id) {
         if (taskRepository.existsById(id)) {

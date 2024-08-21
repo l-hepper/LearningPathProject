@@ -28,6 +28,10 @@ public class Task {
     @Column(name = "deadline", nullable = false)
     private LocalDate deadline;
 
+    @NotNull
+    @Column(name = "completed", nullable = false)
+    private Boolean completed = false; // Default to false
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_tasks",
             joinColumns = @JoinColumn(name = "task_id"),
@@ -57,6 +61,14 @@ public class Task {
 
     public void setDeadline(LocalDate deadline) {
         this.deadline = deadline;
+    }
+
+    public Boolean getCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(Boolean completed) {
+        this.completed = completed;
     }
 
     public Set<User> getUsers() {
