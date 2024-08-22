@@ -65,4 +65,23 @@ Authorization: Bearer <your-token>
 
 `DELETE /tasks/{id}` - Deletes a task by its ID.
 
+## Contribution Guidelines
+
+### 1. Fork and Clone
+Fork the repository and clone it to your local machine.
+
+### 2. Create a Branch
+Create a new branch for your changes.
+
+### 3. Code Standards
+Follow existing coding conventions. Keep commits small and focused.
+
+### 4. Documentation
+Document your code and update the README if necessary.
+
+### 5. Testing
+Ensure your changes pass all tests. Write new tests for new functionality.
+
+### 6. Push and PR
+Push your branch and submit a pull request.
 
