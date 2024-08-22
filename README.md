@@ -30,6 +30,9 @@ Authorization: Bearer <your-token>
 ```
 
 ## Endpoints Overview
+
+`POST /token` - Generates and returns a JWT token for an authenticated user.
+
 `GET /users` - Retrieves all users.
 
 `GET /users/{id}` - Retrieves a specific user by their ID.
@@ -41,5 +44,25 @@ Authorization: Bearer <your-token>
 `PUT /users/{id}` - Updates an existing user by their ID.
 
 `DELETE /users/{id}` - Deletes a user by their ID.
+
+`POST /users/{userId}/tasks/{taskId}` - Assigns a task to a user.
+
+`DELETE /users/{userId}/tasks/{taskId}` - Unassigns a task from a user.
+
+`GET /tasks` - Retrieves all tasks.
+
+`GET /tasks/{id}` - Retrieves a specific task by its ID.
+
+`GET /tasks/{taskId}/users` - Retrieves all users associated with a specific task.
+
+`POST /tasks` - Adds a new task.
+
+`PUT /tasks/{id}` - Updates an existing task by its ID.
+
+`PATCH /tasks/{id}/complete` - Marks a task as complete.
+
+`PATCH /tasks/{id}/uncomplete` - Marks a task as incomplete.
+
+`DELETE /tasks/{id}` - Deletes a task by its ID.
 
 
