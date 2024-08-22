@@ -16,11 +16,6 @@ This is a basic CRUD (Create, Read, Update, Delete) application built with Sprin
 
 ## Setup Instructions
 1. **Clone the repository**:
-   ```bash
-   git clone <your-repo-url>
-   cd <your-repo-directory>
-   ```
-
 2. **Import the project into your preferred IDE as a Maven project**
 3. **Run the file**
 
