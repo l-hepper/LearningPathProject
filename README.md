@@ -30,7 +30,16 @@ Authorization: Bearer <your-token>
 ```
 
 ## Endpoints Overview
-/users: CRUD operations for users \n
-/tasks: CRUD operations for tasks \n
-/token: Authentication endpoint to obtain the JWT \n
+`GET /users` - Retrieves all users.
+
+`GET /users/{id}` - Retrieves a specific user by their ID.
+
+`GET /users/{userId}/tasks` - Retrieves all tasks associated with a specific user.
+
+`POST /users` - Adds a new user.
+
+`PUT /users/{id}` - Updates an existing user by their ID.
+
+`DELETE /users/{id}` - Deletes a user by their ID.
+
 
