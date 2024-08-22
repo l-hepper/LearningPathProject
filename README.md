@@ -30,7 +30,7 @@ Authorization: Bearer <your-token>
 ```
 
 ## Endpoints Overview
-/users: CRUD operations for users.
-/tasks: CRUD operations for tasks.
-/token: Authentication endpoint to obtain the JWT.
+\/users: CRUD operations for users
+\/tasks: CRUD operations for tasks
+\/token: Authentication endpoint to obtain the JWT
 
